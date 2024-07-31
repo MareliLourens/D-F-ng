@@ -5,7 +5,7 @@
   "scripts": {
     "start": "wait-on http://localhost:3000 && electron .",
     "react-start": "cd react-app && npm start",
-    "dev": "concurrently \"npm run react-start\" \"npm start\"",
+    "dev": "concurrently -k \"npm run react-start\" \"npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
