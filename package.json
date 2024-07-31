@@ -1,5 +1,5 @@
 {
-  "name": "du-fang",
+  "name": "Du_Fang",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -17,6 +17,7 @@
     "electron": "^31.2.1"
   },
   "dependencies": {
+    "react-router-dom": "^6.25.1",
     "wait-on": "^7.2.0"
   }
 }
