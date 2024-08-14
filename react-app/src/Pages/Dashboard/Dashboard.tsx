@@ -3,7 +3,11 @@ import './Dashboard.css';
 import { IoGridOutline } from "react-icons/io5";
 import { FaFireFlameCurved, FaMoneyBill, FaUserCheck, FaCoins, FaArrowRight, FaMoneyBillTransfer, FaMoneyBills } from "react-icons/fa6"
 import { SlGraph } from "react-icons/sl";
-import LineChart from '../components/LineChart';
+import LineChart from '../../components/LineChart';
+
+// components
+import NavBar from '../../components/navBar/NavBar';
+import NavHeader from '../../components/navHeader/navHeader';
 
 function Dashboard() {
   return (
@@ -27,16 +31,7 @@ function Dashboard() {
             </defs>
           </svg>
         </div> */}
-        <div className="nav-header">
-          <div className="nav-header--heading">
-            <div className="nav-header--h1">Welcome Back, Luca</div>
-            <div className="h4">Buy, Transfer and Sell chips all in one place</div>
-          </div>
-          <div className="nav-header--controls">
-            <div className="svg"></div>
-            <div className="svg"></div>
-          </div>
-        </div>
+        <NavHeader></NavHeader>
         <div className="body-container">
           <div className="body-container--left">
             <div className="profile-container">
@@ -83,7 +78,7 @@ function Dashboard() {
             </div>
             <div className="cta-container">
               <div className="btn-main dark-bg--gradient shine-hover">
-                <FaMoneyBills  className='money-svg-bg' />
+                <FaMoneyBills className='money-svg-bg' />
                 <div>
                   <FaMoneyBills className='money-svg' />
                 </div>
@@ -239,16 +234,10 @@ function Dashboard() {
                 </div>
                 <div className="h3 green">Star Coin</div>
               </div>
-
+              <NavBar></NavBar>
             </div>
           </div>
         </div>
-      </div>
-      <div className="nav-bar">
-        <div className="svg"></div>
-        <div className="svg"></div>
-        <div className="svg"></div>
-        <div className="svg"></div>
       </div>
     </div>
   );

@@ -1,40 +1,5 @@
 /* dashboard */
 
-.nav-bar {
-  grid-column-gap: 40px;
-  grid-row-gap: 40px;
-  border-right: 1px solid var(--grey-strike);
-  background-color: var(--main-bg);
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 10%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  display: flex;
-  position: fixed;
-  top: 0%;
-  bottom: 0%;
-  left: 0%;
-  right: auto;
-}
-
-.nav-header {
-  border-bottom: 1px solid var(--grey-strike);
-  background-color: var(--main-bg);
-  flex-flow: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 30px;
-  display: flex;
-  position: relative;
-  top: 0%;
-  bottom: auto;
-  left: auto;
-  right: 0%;
-}
-
 .body-main {
   background-color: var(--main-bg);
   width: 90%;
@@ -42,30 +7,6 @@
   position: relative;
   left: 10%;
   overflow: hidden;
-}
-
-.nav-header--heading {
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  flex-flow: column;
-  height: auto;
-  display: flex;
-}
-
-.nav-header--controls {
-  grid-column-gap: 15px;
-  grid-row-gap: 15px;
-  flex-flow: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
-  display: flex;
-}
-
-.nav-header--h1 {
-  color: var(--white);
-  font-size: 36px;
-  line-height: 40px;
 }
 
 .h4 {
@@ -104,7 +45,7 @@
 .profile-container {
   border-radius: var(--border-radius);
   background-color: #3d3d3d;
-  background-image: url('../assets/profile-bg2.png');
+  background-image: url('../../assets/profile-bg2.png');
   background-position: 0 0;
   background-size: cover;
   justify-content: flex-start;
