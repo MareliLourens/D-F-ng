@@ -1,0 +1,37 @@
+.nav-bar {
+    grid-column-gap: 40px;
+    grid-row-gap: 40px;
+    border-right: 1px solid var(--grey-strike);
+    background-color: var(--main-bg);
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 10%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    position: fixed;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: auto;
+}
+
+.nav-btn {
+    width: 30px;
+    height: 30px;
+    color: rgb(224, 224, 224);
+}
+
+.nav-btn:hover {
+    width: 30px;
+    height: 30px;
+    color: rgb(189, 189, 189);
+    cursor: pointer;
+}
+
+.Logo {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 50px;
+}
