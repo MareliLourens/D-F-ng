@@ -27,6 +27,43 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.body-main {
+  background-color: var(--main-bg);
+  width: 90%;
+  /* height: 1500px; */
+  position: relative;
+  left: 10%;
+  overflow: hidden;
+}
+
+.body-container {
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  flex-flow: row;
+  width: 100%;
+  padding: 25px 20px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.body-container--left {
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  flex-flow: column;
+  width: 70%;
+  display: flex;
+  position: relative;
+}
+
+.body-container--right {
+  grid-column-gap: 40px;
+  grid-row-gap: 40px;
+  flex-flow: column;
+  width: 30%;
+  display: flex;
+}
+
 :root {
   --grey-strike: #3e3e45;
   --main-bg: #101011;
