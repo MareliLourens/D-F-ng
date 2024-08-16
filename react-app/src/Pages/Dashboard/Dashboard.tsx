@@ -8,6 +8,8 @@ import LineChart from '../../components/LineChart';
 // components
 import NavBar from '../../components/navBar/NavBar';
 import NavHeader from '../../components/navHeader/navHeader';
+import Buy from '../../components/buy/Buy';
+import Sell from '../../components/sell/Sell';
 
 function Dashboard() {
   return (
@@ -77,30 +79,8 @@ function Dashboard() {
               </div>
             </div>
             <div className="cta-container">
-              <div className="btn-main dark-bg--gradient shine-hover">
-                <FaMoneyBills className='money-svg-bg' />
-                <div>
-                  <FaMoneyBills className='money-svg' />
-                </div>
-                <div className="btn-main-container">
-                  <div className="h2">BUY</div>
-                  <div>
-                    <FaArrowRight className="svg" />
-                  </div>
-                </div>
-              </div>
-              <div className="btn-main dark-bg--gradient shine-hover">
-                <FaMoneyBill className='money-svg-bg' />
-                <div>
-                  <FaMoneyBill className='money-svg' />
-                </div>
-                <div className="btn-main-container">
-                  <div className="h2">SELL</div>
-                  <div>
-                    <FaArrowRight className="svg" />
-                  </div>
-                </div>
-              </div>
+            <Buy></Buy>
+            <Sell></Sell>
               <div className="btn-main dark-bg--gradient shine-hover">
                 <FaMoneyBillTransfer className='money-svg-bg' />
                 <div>

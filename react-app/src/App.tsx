@@ -4,6 +4,7 @@ import AuthService from '../src/services/authService';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Transactions from './Pages/Transactions/Transactions';
+import SingleCoin from './Pages/SingleCoin/SingleCoin';
 
 function App() {
 
@@ -12,13 +13,15 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 {/* <Route
                     path="/dashboard"
                     element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
                 /> */}
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/Transactions" element={<Transactions />} />
+                <Route path="/single" element={<SingleCoin />} />
+
                 {/* <Route path="*" element={<Navigate to="/login" />} /> */}
             </Routes>
         </Router>
