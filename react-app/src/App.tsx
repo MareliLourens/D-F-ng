@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Transactions from './Pages/Transactions/Transactions';
 import SingleCoin from './Pages/SingleCoin/SingleCoin';
 import SignUp from './Pages/SignUp';
+import Log from './Pages/Log';
 
 function App() {
 
@@ -14,7 +15,8 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<SignUp />} />
+                <Route path="/" element={<Log />} />
+                <Route path="/signup" element={<SignUp />} />
                 {/* <Route
                     path="/dashboard"
                     element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
