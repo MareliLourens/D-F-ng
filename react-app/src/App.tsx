@@ -5,6 +5,7 @@ import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Transactions from './Pages/Transactions/Transactions';
 import SingleCoin from './Pages/SingleCoin/SingleCoin';
+import SignUp from './Pages/SignUp';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<SignUp />} />
                 {/* <Route
                     path="/dashboard"
                     element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
@@ -28,9 +29,9 @@ function App() {
     );
 }
 
-const handleLogout = () => {
-    AuthService.logout();
+// const handleLogout = () => {
+//     AuthService.logout();
 
-};
+// };
 
 export default App;
