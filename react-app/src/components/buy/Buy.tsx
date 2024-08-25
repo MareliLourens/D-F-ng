@@ -221,7 +221,6 @@ const Buy = () => {
                 </button>
               ) : null}
 
-
             </div>
           </div>
         </>
