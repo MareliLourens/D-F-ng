@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as Components from '../Component';
 import './Login.css';
+import axios from "axios";
 
 
 const backgroundStyle = {
@@ -15,7 +16,11 @@ function App() {
     const [signIn, toggle] = React.useState(true);
     const navigate = useNavigate();
 
-    return(
+    const signInWithDefaultUser = async () => {
+
+    };
+
+    return (
         <div style={backgroundStyle}>
             <Components.Container>
                 <Components.SignUpContainer signinIn={signIn}>
@@ -34,7 +39,7 @@ function App() {
                         <Components.Input type='email' placeholder='Email' />
                         <Components.Input type='password' placeholder='Password' />
                         <Components.Anchor href='#'>Forgot your password?</Components.Anchor>
-                        <Components.Button onClick={() => navigate('/Dashboard')}>Sign In</Components.Button>
+                        <Components.Button onClick={() => signInWithDefaultUser()}>Sign In</Components.Button>
                     </Components.Form>
                 </Components.SignInContainer>
 
@@ -57,7 +62,7 @@ function App() {
                             </Components.Paragraph>
                             <Components.GhostButton onClick={() => toggle(false)}>
                                 Sign Up
-                            </Components.GhostButton> 
+                            </Components.GhostButton>
                         </Components.RightOverlayPanel>
                     </Components.Overlay>
                 </Components.OverlayContainer>

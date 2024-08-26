@@ -6,6 +6,7 @@ import Buy from '../../components/buy/Buy';
 import Sell from '../../components/sell/Sell';
 import Coin from '../../assets/coin.png';
 import LineChart from '../../components/LineChart';
+import Transfer from '../../components/transfer/Transfer';
 
 const SingleCoin = () => {
 
@@ -25,7 +26,7 @@ const SingleCoin = () => {
                 <p style={{ fontSize: '23px', color: 'green' }}>+2.3%</p>
               </div>
               <div className={styles.chartContainer}>
-              <LineChart />
+                <LineChart />
               </div>
             </div>
           </div>
@@ -67,18 +68,7 @@ const SingleCoin = () => {
           </div>
           <div className='line'></div>
           <div className={styles.buttonContainer}>
-            <div className="btn-main dark-bg--gradient shine-hover">
-              <FaMoneyBillTransfer className='money-svg-bg' />
-              <div>
-                <FaMoneyBillTransfer className='money-svg' />
-              </div>
-              <div className="btn-main-container">
-                <div className="h2">TRADE</div>
-                <div>
-                  <FaArrowRight className="svg" />
-                </div>
-              </div>
-            </div>
+            <Transfer />
           </div>
         </div>
       </div>

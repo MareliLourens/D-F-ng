@@ -19,6 +19,7 @@ const Log = () => {
             
             // Assuming the server returns a token upon successful login
             localStorage.setItem('token', response.token);
+            localStorage.setItem('userId', response.userId);
             
             // Redirect to dashboard or home page after successful login
             navigate('/Dashboard');
