@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { IoGridOutline } from "react-icons/io5";
 import { FaFireFlameCurved, FaMoneyBill, FaUserCheck, FaCoins, FaArrowRight, FaMoneyBillTransfer, FaMoneyBills } from "react-icons/fa6"
@@ -11,7 +11,33 @@ import NavHeader from '../../components/navHeader/navHeader';
 import Buy from '../../components/buy/Buy';
 import Sell from '../../components/sell/Sell';
 
+import useUserService, { UserData, AccountData } from '../../services/UserService';
+
 function Dashboard() {
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [accountData, setAccountData] = useState<AccountData | null>(null);
+  const userService = useUserService();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await userService.getCurrentUser();
+        setUserData(user);
+
+        const account = await userService.getAccountData(user.userId);
+        setAccountData(account);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!userData || !accountData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="body-main">
@@ -43,8 +69,8 @@ function Dashboard() {
                     <img src="https://images.unsplash.com/photo-1707759642885-42994e023046?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile" className="profile-image" />
                   </div>
                   <div className="profile-container-heading">
-                    <div className="h1">LUCA BREEBAART</div>
-                    <div className="h4">LUCABREEBRT131513511</div>
+                    <div className="h1">{userData.username}</div>
+                    <div className="h4">{userData.email}</div>
                   </div>
                 </div>
                 <div className="profile-content-container">
@@ -59,12 +85,12 @@ function Dashboard() {
                   </div>
                   <div className="profile-content">
                     <div className="content">
-                      <div className="h3">Status</div>
+                      <div className="h3">Active</div>
                       <div>
                         <FaUserCheck className="svg" />
                       </div>
                     </div>
-                    <div className="h3">Active</div>
+                    <div className="h3">{accountData.active ? 'True' : 'False'}</div>
                   </div>
                   <div className="profile-content">
                     <div className="content">
@@ -79,8 +105,8 @@ function Dashboard() {
               </div>
             </div>
             <div className="cta-container">
-            <Buy></Buy>
-            <Sell></Sell>
+              <Buy></Buy>
+              <Sell></Sell>
               <div className="btn-main dark-bg--gradient shine-hover">
                 <FaMoneyBillTransfer className='money-svg-bg' />
                 <div>
@@ -151,7 +177,7 @@ function Dashboard() {
                 <button className="h4 tertiary-btn">view more</button>
               </div>
               <div className="line"></div>
-              <div className="portfolio-sub-heading">R2 105.36</div>
+              <div className="portfolio-sub-heading">R {accountData.balance.toFixed(2)}</div>
             </div>
             {/* Coin */}
             <div className="portfolio-card-containe shine-hover">
@@ -161,7 +187,7 @@ function Dashboard() {
                 <div className='coin-card-shape shape2'></div>
 
                 <div className="h3">Star Coin</div>
-                <div className="coin-card--heading">15.25 <span className="coin-card--heading--small">STRP</span> </div>
+                <div className="coin-card--heading"> {accountData.coinBalance} <span className="coin-card--heading--small">STRP</span> </div>
                 <div className="h3 green">+2.3%</div>
                 <div className="blur-block"></div>
               </div>
