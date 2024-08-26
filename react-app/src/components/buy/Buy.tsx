@@ -9,6 +9,7 @@ const Buy = () => {
   const [showModal, setShowModal] = useState(false);
   const [amountEntered, setAmountEntered] = useState(1); //Starcoin Amount
   const [transFee, setTransFee] = useState(25); //Transaction fee
+  const [transFeePerc, setTransFeePerc] = useState(1); //Transaction fee %
   const [totalCost, setTotalCost] = useState(275); //Total Cost
   const [cashAmount, setCashAmount] = useState(200); //Cost before totalcost
 
@@ -22,15 +23,25 @@ const Buy = () => {
   const handleClose = () => setShowModal(false);
 
   useEffect(() => {
-    const fetchAccountData = async () => {
-      const storedUserId = localStorage.getItem('userId');
-      setUserId(storedUserId!);
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
+  useEffect(() => {
+    const fetchAccountData = async () => {
       if (userId) {
         try {
 
-          const response = await axios.get(`http://localhost:5000/api/Account/${userId}`);
+          const response = await axios.get(`http://localhost:5234/api/Account/${userId}`);
           setAccountBalance(response.data.balance);
+
+          const accountStatus = response.data.statusId;
+          const responseStatus = await axios.get(`http://localhost:5234/api/Status/${accountStatus}`)
+          const statusTransFee = responseStatus.data.transactionFee / 10;
+
+          setTransFeePerc(statusTransFee);
 
         } catch (error) {
           console.error('Error fetching account data:', error);
@@ -40,7 +51,7 @@ const Buy = () => {
     };
 
     fetchAccountData();
-  }, []);
+  }, [userId]);
 
   const handlePurchase = async () => {
     if (totalCost > accountBalance) {
@@ -51,10 +62,14 @@ const Buy = () => {
     } else {
       try {
 
-        const response = await axios.post('http://localhost:5000/api/Transaction/StarCoinPurchase', {
-          fromAccountId: userId, // The user ID
-          starCoins: amountEntered, // The amount of StarCoins the user wants to purchase
-          amount: totalCost // The total cost in currency to be deducted
+        console.log(amountEntered);
+
+        const response = await axios.post('http://localhost:5234/api/Transaction/StarCoinPurchase', null, {
+          params: {
+            fromAccountId: userId, // The user ID
+            starCoins: amountEntered, // The amount of StarCoins the user wants to purchase
+            amount: -totalCost // The total cost in currency to be deducted
+          }
         });
 
         if (response.status === 201) {
@@ -72,13 +87,11 @@ const Buy = () => {
 
   const handleTopup = async () => {
     try {
-
-      console.log('Account Balance: ', accountBalance);
-      console.log('Account ID: ', userId);
-
-      const response = await axios.post('http://localhost:5000/api/Transaction/AccountTopup', {
-        fromAccountId: userId, // The user ID
-        amount: cashAmount // The amount of money to top up
+      const response = await axios.post('http://localhost:5234/api/Transaction/AccountTopup', null, {
+        params: {
+          fromAccountId: userId, // The user ID
+          amount: cashAmount // The amount of money to top up
+        }
       });
 
       if (response.status === 201) {
@@ -98,7 +111,7 @@ const Buy = () => {
 
     setAmountEntered(value);
     const preCost = value * 250;
-    const fee = preCost * 0.1;
+    const fee = preCost * transFeePerc;
 
     setTransFee(fee)
     setTotalCost(preCost + fee)
@@ -160,7 +173,6 @@ const Buy = () => {
                       min={1}
                     />
 
-                    {/* TODO: Implement transaction fees from account status */}
                     <p className={styles.titles}>Transaction Fee (In Rands):</p>
                     <div className={styles.input} id='transFee'>
                       {transFee}

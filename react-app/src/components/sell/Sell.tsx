@@ -20,8 +20,10 @@ const Sell = () => {
   const [accountBalance, setAccountBalance] = useState(0);
 
   useEffect(() => {
-    const storedUserId = sessionStorage.getItem('userId');
-    setUserId(storedUserId!);
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
   }, []);
 
   useEffect(() => {
@@ -30,22 +32,27 @@ const Sell = () => {
       if (userId) {
         try {
 
-          const response = await axios.get(`http://localhost:5000/api/Account/${userId}`);
+          const response = await axios.get(`http://localhost:5234/api/Account/${userId}`);
           setAccountCoins(response.data.CoinBalance);
           setAccountBalance(response.data.balance);
 
         } catch (error) {
+
           console.error('Error fetching account data:', error);
+
         }
       }
 
     };
 
     fetchAccountData();
-  }, []);
+  }, [userId]);
 
   const handleSell = async () => {
-    if (totalGain > accountCoins) {
+    if (amountEnteredToSell > accountCoins) {
+
+      console.log(amountEnteredToSell);
+      console.log(accountCoins);
 
       alert('You do not have enough funds to complete this purchase.');
       return;
@@ -53,20 +60,22 @@ const Sell = () => {
     } else {
       try {
 
-        const response = await axios.post('http://localhost:5000/api/Transaction/StarCoinPurchase', {
-          fromAccountId: userId, // The user ID
-          starCoins: -amountEnteredToSell, // The amount of StarCoins the user wants to sell
-          amount: -totalGain // The total cost in currency to be added
+        const response = await axios.post('http://localhost:5234/api/Transaction/StarCoinPurchase', null, {
+          params: {
+            fromAccountId: userId, // The user ID
+            starCoins: -amountEnteredToSell, // The amount of StarCoins the user wants to sell
+            amount: totalGain // The total cost in currency to be added
+          }
         });
 
         if (response.status === 201) {
-          alert('StarCoin purchase successful!');
+          alert('StarCoin(s) successfully sold!');
           setAccountBalance(accountBalance + totalGain); // Update the local balance
           handleClose(); // Close the modal
         }
 
       } catch (error) {
-        console.error('Error purchasing StarCoins:', error);
+        console.error('Error selling StarCoins:', error);
         alert('There was an error processing your purchase.');
       }
     }
