@@ -22,12 +22,9 @@ const Buy = () => {
   const handleClose = () => setShowModal(false);
 
   useEffect(() => {
-    const storedUserId = sessionStorage.getItem('userId');
-    setUserId(storedUserId!);
-  }, []);
-
-  useEffect(() => {
     const fetchAccountData = async () => {
+      const storedUserId = localStorage.getItem('userId');
+      setUserId(storedUserId!);
 
       if (userId) {
         try {
@@ -75,6 +72,9 @@ const Buy = () => {
 
   const handleTopup = async () => {
     try {
+
+      console.log('Account Balance: ', accountBalance);
+      console.log('Account ID: ', userId);
 
       const response = await axios.post('http://localhost:5000/api/Transaction/AccountTopup', {
         fromAccountId: userId, // The user ID
