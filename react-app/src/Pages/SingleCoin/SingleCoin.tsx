@@ -3,9 +3,9 @@ import styles from './SingleCoin.module.css';
 import { Chart } from 'react-chartjs-2';
 import NavBar from '../../components/navBar/NavBar';
 import NavHeader from '../../components/navHeader/navHeader';
-import { FaArrowRight, FaMoneyBillTransfer } from 'react-icons/fa6';
-import Buy from '../../components/buy/Buy';
-import Sell from '../../components/sell/Sell';
+import { FaArrowRight, FaMoneyBill } from 'react-icons/fa'; // Updated icon import
+import Buy from '../../components/buy/Buy'; // Ensure this path is correct
+import Sell from '../../components/sell/Sell'; // Ensure this path is correct
 import Coin from '../../assets/coin.png';
 
 const SingleCoin = () => {
@@ -93,9 +93,9 @@ const SingleCoin = () => {
           <div className='line'></div>
           <div className={styles.buttonContainer}>
             <div className="btn-main dark-bg--gradient shine-hover">
-              <FaMoneyBillTransfer className='money-svg-bg' />
+              <FaMoneyBill className='money-svg-bg' />
               <div>
-                <FaMoneyBillTransfer className='money-svg' />
+                <FaMoneyBill className='money-svg' />
               </div>
               <div className="btn-main-container">
                 <div className="h2">TRADE</div>
