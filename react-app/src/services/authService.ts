@@ -69,6 +69,7 @@ export const useAuthService = () => {
     const logout = () => {
         // Remove the token from localStorage
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
     };
 
     return {

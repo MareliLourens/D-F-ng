@@ -180,7 +180,7 @@ function Dashboard() {
               <div className="portfolio-sub-heading">R {accountData.balance.toFixed(2)}</div>
             </div>
             {/* Coin */}
-            <div className="portfolio-card-containe shine-hover">
+            <div className="portfolio-card-container shine-hover">
               <div className="coin-card dark-bg--gradient">
                 <div className='coin-card-shape shape1'></div>
                 <div className='coin-card-shape shape3'></div>

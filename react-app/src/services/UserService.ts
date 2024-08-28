@@ -44,7 +44,7 @@ export const useUserService = () => {
       throw error;
     }
   };
-  
+
   return {
     getCurrentUser,
     getAccountData,

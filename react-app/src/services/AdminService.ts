@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export interface User {
+export interface AdminUser {
   userId: number;
   username: string;
   email: string;
@@ -10,10 +10,11 @@ export interface User {
 const API_BASE_URL = 'http://localhost:5234/api';
 
 export const useAdminService = () => {
-  const getAllUsers = async (): Promise<User[]> => {
+  const getAllUsers = async (): Promise<AdminUser[]> => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/User`);
-      return response.data; 
+      const response = await axios.get<AdminUser[]>(`${API_BASE_URL}/User`);
+      // added AdminUser[] because we are aware of the array structure
+      return response.data;
     } catch (error) {
       console.error('Error fetching users:', error);
       throw error;
