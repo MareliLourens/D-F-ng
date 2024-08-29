@@ -7,6 +7,7 @@ import Transactions from './Pages/Transactions/Transactions';
 import SingleCoin from './Pages/SingleCoin/SingleCoin';
 import SignUp from './Pages/SignUp';
 import Log from './Pages/Log';
+import AdminControl from './Pages/AdminControl/Admin'
 
 function App() {
 
@@ -24,6 +25,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/Transactions" element={<Transactions />} />
                 <Route path="/single" element={<SingleCoin />} />
+                <Route path="/admin" element={<AdminControl />} />
+                
 
                 {/* <Route path="*" element={<Navigate to="/login" />} /> */}
             </Routes>
