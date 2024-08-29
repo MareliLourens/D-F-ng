@@ -12,6 +12,7 @@ import Buy from '../../components/buy/Buy';
 import Sell from '../../components/sell/Sell';
 
 import useUserService, { UserData, AccountData } from '../../services/UserService';
+import Transfer from '../../components/transfer/Transfer';
 
 function Dashboard() {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -105,20 +106,9 @@ function Dashboard() {
               </div>
             </div>
             <div className="cta-container">
-              <Buy></Buy>
-              <Sell></Sell>
-              <div className="btn-main dark-bg--gradient shine-hover">
-                <FaMoneyBillTransfer className='money-svg-bg' />
-                <div>
-                  <FaMoneyBillTransfer className='money-svg' />
-                </div>
-                <div className="btn-main-container">
-                  <div className="h2">TRADE</div>
-                  <div>
-                    <FaArrowRight className="svg" />
-                  </div>
-                </div>
-              </div>
+              <Buy />
+              <Sell />
+              <Transfer />
             </div>
             <div className="snippet-container">
               <div className="transactions-container dark-bg--gradient">
