@@ -39,7 +39,7 @@ const Buy = () => {
 
           const accountStatus = response.data.statusId;
           const responseStatus = await axios.get(`http://localhost:5234/api/Status/${accountStatus}`)
-          const statusTransFee = responseStatus.data.transactionFee / 10;
+          const statusTransFee = responseStatus.data.transactionFee;
 
           setTransFeePerc(statusTransFee);
 
