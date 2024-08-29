@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from './buy.module.css';
-
 import { FaArrowRight, FaMoneyBills } from 'react-icons/fa6';
 import axios from 'axios';
 
 const Buy = () => {
-
   const [showModal, setShowModal] = useState(false);
   const [amountEntered, setAmountEntered] = useState(1); //Starcoin Amount
-  const [transFee, setTransFee] = useState(25); //Transaction fee
-  const [transFeePerc, setTransFeePerc] = useState(1); //Transaction fee %
-  const [totalCost, setTotalCost] = useState(275); //Total Cost
-  const [cashAmount, setCashAmount] = useState(200); //Cost before totalcost
-
-  const [transType, setTransType] = useState('StarCoins')
+  const [transFee, setTransFee] = useState(50); //Transaction fee
+  const [transFeePerc, setTransFeePerc] = useState(2); //Transaction fee %
+  const [totalCost, setTotalCost] = useState(300); //Total Cost
 
   // User Info
   const [userId, setUserId] = useState('');
@@ -21,7 +16,12 @@ const Buy = () => {
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  // The default value of a StarCoin in Rands
+  const starCoinValue = 250;
+
+  // Collect the user's id
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
@@ -29,14 +29,17 @@ const Buy = () => {
     }
   }, []);
 
+  // Collect relevant user data
   useEffect(() => {
     const fetchAccountData = async () => {
       if (userId) {
         try {
 
+          // --Local Rand account balance
           const response = await axios.get(`http://localhost:5234/api/Account/${userId}`);
           setAccountBalance(response.data.balance);
 
+          // --Collect the user's status to find their transaction fee percentage
           const accountStatus = response.data.statusId;
           const responseStatus = await axios.get(`http://localhost:5234/api/Status/${accountStatus}`)
           const statusTransFee = responseStatus.data.transactionFee;
@@ -53,17 +56,27 @@ const Buy = () => {
     fetchAccountData();
   }, [userId]);
 
+  // Recalculate the transaction fee and total cost whenever transFeePerc or amountEntered changes
+  useEffect(() => {
+    const preCost = amountEntered * starCoinValue;
+    const fee = preCost * transFeePerc;
+    setTransFee(fee);
+    setTotalCost(preCost + fee);
+  }, [transFeePerc, amountEntered]);
+
+  // Purchase a StarCoin
   const handlePurchase = async () => {
     if (totalCost > accountBalance) {
 
+      // Don't purchase if the user has insufficient funds
       alert('You do not have enough funds to complete this purchase.');
       return;
 
     } else {
+      // Disable the button
+      setIsButtonDisabled(true);
+
       try {
-
-        console.log(amountEntered);
-
         const response = await axios.post('http://localhost:5234/api/Transaction/StarCoinPurchase', null, {
           params: {
             fromAccountId: userId, // The user ID
@@ -74,53 +87,46 @@ const Buy = () => {
 
         if (response.status === 201) {
           alert('StarCoin purchase successful!');
-          setAccountBalance(accountBalance - totalCost); // Update the local balance
           handleClose(); // Close the modal
+          window.location.reload(); // Reload the page to get the latest data
         }
 
       } catch (error) {
         console.error('Error purchasing StarCoins:', error);
         alert('There was an error processing your purchase.');
+      } finally {
+        // Re-enable the button
+        setIsButtonDisabled(false);
       }
-    }
-  };
-
-  const handleTopup = async () => {
-    try {
-      const response = await axios.post('http://localhost:5234/api/Transaction/AccountTopup', null, {
-        params: {
-          fromAccountId: userId, // The user ID
-          amount: cashAmount // The amount of money to top up
-        }
-      });
-
-      if (response.status === 201) {
-        alert('Account top-up successful!');
-        setAccountBalance(accountBalance + cashAmount); // Update the local balance
-        handleClose(); // Close the modal
-      }
-
-    } catch (error) {
-      console.error('Error topping up account:', error);
-      alert('There was an error processing your top-up.');
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
+    const minValue = 1;
 
-    setAmountEntered(value);
-    const preCost = value * 250;
-    const fee = preCost * transFeePerc;
+    // Test to enforce minimum value
+    if (value < minValue) {
+      setAmountEntered(minValue);
 
-    setTransFee(fee)
-    setTotalCost(preCost + fee)
-  };
+      // Calculate the new transaction fee
+      const preCost = minValue * starCoinValue;
+      const fee = preCost * transFeePerc;
+      setTransFee(fee)
 
-  const handleChangeTopup = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
+      // Calculate the new total cost
+      setTotalCost(preCost + fee)
+    } else {
+      setAmountEntered(value);
 
-    setCashAmount(value);
+      // Calculate the new transaction fee
+      const preCost = value * starCoinValue;
+      const fee = preCost * transFeePerc;
+      setTransFee(fee)
+
+      // Calculate the new total cost
+      setTotalCost(preCost + fee)
+    }
   };
 
   return (
@@ -128,15 +134,18 @@ const Buy = () => {
       <div className={styles.buttonContainer}>
         <div className="btn-main dark-bg--gradient shine-hover" onClick={handleShow}>
           <FaMoneyBills className='money-svg-bg' />
+
           <div>
             <FaMoneyBills className='money-svg' />
           </div>
+
           <div className="btn-main-container">
             <div className="h2">BUY</div>
             <div>
               <FaArrowRight className="svg" />
             </div>
           </div>
+
         </div>
       </div>
 
@@ -145,95 +154,48 @@ const Buy = () => {
           <div className={styles.modalOverlay} onClick={handleClose}></div>
           <div className={styles.modal}>
             <div className={styles.modalHeader}>
-              <h5 className={styles.modalTitle}>BUY</h5>
-
-              <select
-                value={transType}
-                onChange={(e) => setTransType(e.target.value)}
-                className={styles.dropdown}
-              >
-                <option className='dropdownOptions' value="StarCoins">StarCoins</option>
-                <option value="AccountTopup">Account Top-up</option>
-              </select>
+              <h5 className={styles.modalTitle}>BUY (R{starCoinValue} per StarCoin)</h5>
 
               <button className={styles.closeButton} onClick={handleClose}>&times;</button>
             </div>
+
             <div className={styles.modalBody}>
-              {/*  */}
               <div className='transactions-container dark-bg--gradient'>
-                {transType === 'StarCoins' ? (
-                  <>
-                    <p className={styles.titles}>StarCoin Amount:</p>
-                    <input
-                      type="number"
-                      name="input1"
-                      value={amountEntered}
-                      onChange={handleChange}
-                      className={styles.input}
-                      min={1}
-                    />
 
-                    <p className={styles.titles}>Transaction Fee (In Rands):</p>
-                    <div className={styles.input} id='transFee'>
-                      {transFee}
-                    </div>
+                <p className={styles.titles}>StarCoin Amount:</p>
+                <input
+                  type="number"
+                  name="input1"
+                  value={amountEntered}
+                  onChange={handleChange}
+                  className={styles.input}
+                  min={1}
+                />
 
-                    <hr style={{ width: '100%', margin: '0px' }}></hr>
+                <p className={styles.titles}>Transaction Fee (In Rands):</p>
+                <div className={styles.input} id='transFee'>
+                  {transFee}
+                </div>
 
-                    <p className={styles.titles}>Total Cost (In Rands):</p>
-                    <div className={styles.input}>
-                      {totalCost}
-                    </div>
-                  </>
-                ) : transType === 'AccountTopup' ? (
-                  <>
-                    <p className={styles.titles}> Top-Up Amount (In Rands):</p>
-                    <input
-                      type="number"
-                      name="input2"
-                      value={cashAmount}
-                      onChange={handleChangeTopup}
-                      className={styles.input}
-                      min={200}
-                    />
+                <hr style={{ width: '100%', margin: '0px' }}></hr>
 
-                    <hr style={{ width: '100%', margin: '0px' }}></hr>
+                <p className={styles.titles}>Total Cost (In Rands):</p>
+                <div className={styles.input}>
+                  {totalCost}
+                </div>
 
-                    <p className={styles.titles}>Card Number:</p>
-                    <input
-                      type="text"
-                      name="input3"
-                      placeholder='0000 0000 0000 0000'
-                      className={styles.input}
-                    />
-
-                    <p className={styles.titles}>CVV Number:</p>
-                    <input
-                      type="text"
-                      name="input4"
-                      placeholder='0000'
-                      className={styles.input}
-                    />
-                  </>
-                ) : null}
               </div>
             </div>
+
             <div className={styles.modalFooter}>
-              <button className={`${styles.closeButton} tertiary-btn`} onClick={handleClose}>
+              <button className={`${styles.closeButton} tertiary-btn`} onClick={handleClose} disabled={isButtonDisabled}>
                 Close
               </button>
-
-              {transType === 'StarCoins' ? (
-                <button className={`${styles.continueButton} btn-main `} onClick={handlePurchase}>
-                  Submit
-                </button>
-              ) : transType === 'AccountTopup' ? (
-                <button className={`${styles.continueButton} btn-main `} onClick={handleTopup}>
-                  Submit
-                </button>
-              ) : null}
-
+              <button className={`${styles.continueButton} btn-main `} onClick={handlePurchase} disabled={isButtonDisabled}>
+                Submit
+              </button>
             </div>
+
           </div>
         </>
       )}
