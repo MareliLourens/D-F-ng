@@ -13,6 +13,7 @@ import Sell from '../../components/sell/Sell';
 
 import useUserService, { UserData, AccountData } from '../../services/UserService';
 import Transfer from '../../components/transfer/Transfer';
+import Loading from '../../components/loading';
 
 function Dashboard() {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -36,7 +37,11 @@ function Dashboard() {
   }, []);
 
   if (!userData || !accountData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-wrapper">
+        <Loading />
+      </div>
+    )
   }
 
   return (
