@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { useAuthService } from '../services/authService';
 import { useNavigate } from "react-router-dom";
 import * as Components from '../Component';
+import './Login.css';
+
+const backgroundStyle = {
+    backgroundImage: 'url(../assets/background.png)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+};
 
 const Signup = () => {
     const [username, setUsername] = useState<string>('');
@@ -11,7 +19,6 @@ const Signup = () => {
     const [error, setError] = useState<string | null>(null);
     const [isOtpSent, setIsOtpSent] = useState<boolean>(false);
     const authService = useAuthService();
-
     const navigate = useNavigate();
 
     const handleSignUp = async (e: React.FormEvent) => {
@@ -41,56 +48,51 @@ const Signup = () => {
     };
 
     return (
-        <div className="signup-container">
-            <h2>Sign Up</h2>
+        <div className="container">
+            <h2 className="title">Sign Up</h2>
             {error && <p className="error">{error}</p>}
             {!isOtpSent ? (
-                <form onSubmit={handleSignUp}>
-                    <div>
-                        <label>Username:</label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </form>
+                <Components.Form onSubmit={handleSignUp}>
+                    <Components.Input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Username"
+                        required
+                        className="input"
+                    />
+                    <Components.Input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                        required
+                        className="input"
+                    />
+                    <Components.Input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                        className="input"
+                    />
+                    <Components.Button type="submit" className="button">Sign Up</Components.Button>
+                </Components.Form>
             ) : (
-                <form onSubmit={handleOtpValidation}>
-                    <div>
-                        <label>OTP:</label>
-                        <input
-                            type="text"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Validate OTP</button>
-                </form>
+                <Components.Form onSubmit={handleOtpValidation}>
+                    <Components.Input
+                        type="text"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        placeholder="OTP"
+                        required
+                        className="input"
+                    />
+                    <Components.Button type="submit" className="button">Validate OTP</Components.Button>s
+                </Components.Form>
             )}
-            <br /><br /><br />
-            <button onClick={() => navigate('/Dashboard')}>Sign In</button>
+            <p>Already have an account? <Components.Anchor onClick={() => navigate('/')}>Sign In</Components.Anchor></p>
         </div>
     );
 };
