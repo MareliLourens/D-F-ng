@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useAuthService } from '../services/authService';
 import { useNavigate } from "react-router-dom";
 import * as Components from '../Component';
-import { Button } from '../Component'; // Import the styled Button
+import { Button } from '../Component';
+import backgroundImage from '../assets/background.png';
 
 const Log = () => {
     const [email, setEmail] = useState<string>('');
@@ -26,70 +27,38 @@ const Log = () => {
         }
     };
 
-    const backgroundStyle = {
-        backgroundImage: 'url(../assets/background.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    };
-
-    const containerStyle: React.CSSProperties = {
-        maxWidth: '400px',
-        padding: '40px',
-        background: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: '10px',
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-        display: 'flex',
-        flexDirection: 'column', // Ensure this is a valid CSS property
-        alignItems: 'center',
-    };
-
-    const titleStyle: React.CSSProperties = {
-        fontSize: '24px',
-        marginBottom: '20px',
-        textAlign: 'center' as React.CSSProperties['textAlign'], // Explicitly cast to the correct type
-        color: '#333',
-    };
-
-    const inputStyle: React.CSSProperties = {
-        width: '100%',
-        padding: '12px',
-        margin: '10px 0',
-        border: '1px solid #007bff', // Change border color
-        borderRadius: '5px',
-        backgroundColor: '#f0f8ff', // Change background color
-    };
-
-    const buttonStyle: React.CSSProperties = {
-        width: '100%',
-        padding: '12px',
-        backgroundColor: '#007bff', // Match the signup button color
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    };
-
-    const buttonHoverStyle: React.CSSProperties = {
-        backgroundColor: '#0056b3', // Change hover color
-    };
-
-    const errorStyle: React.CSSProperties = {
-        color: 'red',
-        textAlign: 'center', // Change this line
-        marginTop: '10px',
-    };
-
     return (
-        <div style={backgroundStyle}>
-            <div style={containerStyle}>
-                <h2 style={titleStyle}>Login</h2>
-                {error && <p style={errorStyle}>{error}</p>}
+        <div style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <div style={{
+                maxWidth: '400px',
+                padding: '40px',
+                background: 'white',
+                borderRadius: '10px',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}>
+                <h2 style={{
+                    fontSize: '24px',
+                    marginBottom: '20px',
+                    textAlign: 'center',
+                    color: '#333',
+                }}>Login</h2>
+                {error && <p style={{
+                    color: 'red',
+                    textAlign: 'center',
+                    marginTop: '10px',
+                }}>{error}</p>}
                 <form onSubmit={handleLogin}>
                     <input
                         type="email"
@@ -97,7 +66,14 @@ const Log = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
                         required
-                        style={inputStyle}
+                        style={{
+                            width: '100%',
+                            padding: '12px',
+                            margin: '10px 0',
+                            border: '1px solid #007bff',
+                            borderRadius: '5px',
+                            backgroundColor: '#f0f8ff',
+                        }}
                     />
                     <input
                         type="password"
@@ -105,11 +81,26 @@ const Log = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
                         required
-                        style={inputStyle}
+                        style={{
+                            width: '100%',
+                            padding: '12px',
+                            margin: '10px 0',
+                            border: '1px solid #007bff',
+                            borderRadius: '5px',
+                            backgroundColor: '#f0f8ff',
+                        }}
                     />
                     <a href="#">Forgot your password?</a>
-                    <Button type="submit" className="button">Login</Button>
-                    <p>Don't have an account? <a onClick={() => navigate('/signup')}>Sign Up</a></p>
+                    <Button type="submit" className="button"  style={{
+                            width: '100%',
+                            marginTop: '25px',
+                            marginBottom: '25px'
+                        }}>Login</Button>
+                    <p  style={{
+                            color: 'black'
+                        }}>Don't have an account? <a  style={{
+                            color: 'purple'
+                        }} onClick={() => navigate('/signup')}>Sign Up</a></p>
                 </form>
             </div>
         </div>
