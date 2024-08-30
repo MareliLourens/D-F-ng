@@ -5,6 +5,7 @@ import NavBar from '../../components/navBar/NavBar';
 import NavHeader from '../../components/navHeader/navHeader';
 import useTransactionService, { Transaction } from '../../services/TransactionService';
 import useUserService from '../../services/UserService';
+import Loading from '../../components/loading'; // Import the new Loading component
 
 function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -39,7 +40,11 @@ function Transactions() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-wrapper">
+        <Loading />
+      </div>
+    );
   }
 
   return (

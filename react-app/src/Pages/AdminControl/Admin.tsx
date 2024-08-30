@@ -4,6 +4,7 @@ import NavHeader from '../../components/navHeader/navHeader';
 import Navbar from '../../components/navBar/NavBar';
 import { useNavigate } from 'react-router-dom';
 import './Admin.css';
+import Loading from '../../components/loading';
 
 const Admin = () => {
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -36,16 +37,20 @@ const Admin = () => {
     <div className="body-main">
       <NavHeader />
       <div className="body-container">
-        <div className="admin-card-container">
-          {loading && <p>Loading users...</p>}
-          {error && <p>Error: {error}</p>}
-          {!loading && !error && users.map((user) => (
-            <div key={user.userId} className="coin-card dark-bg--gradient admin-card" onClick={() => handleUserSelect(user)}>
-              <div className="h3">Email: {user.email}</div>
-              <div className="coin-card--heading">{user.username}</div>
-              <div className="h3">Admin: {user.isAdmin ? 'Yes' : 'No'}</div>
-            </div>
-          ))}
+        <div className="body-container--left">
+          <div className="admin-card-container">
+            {loading && <div className="loading-wrapper">
+              <Loading />
+            </div>}
+            {error && <p>Error: {error}</p>}
+            {!loading && !error && users.map((user) => (
+              <div key={user.userId} className="coin-card dark-bg--gradient admin-card" onClick={() => handleUserSelect(user)}>
+                <div className="h3">Email: {user.email}</div>
+                <div className="coin-card--heading">{user.username}</div>
+                <div className="h3">Admin: {user.isAdmin ? 'Yes' : 'No'}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <Navbar />

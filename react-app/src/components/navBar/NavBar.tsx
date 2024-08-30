@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoGrid } from "react-icons/io5";
 import { LuWallet2, LuNewspaper } from "react-icons/lu";
 import useAuthService from '../../services/authService';
+import { RiAdminLine } from "react-icons/ri";
+
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -23,6 +25,9 @@ const Navbar = () => {
             </Link>
             <Link to="/single" className="nav-btn">
                 <LuNewspaper className="nav-btn" />
+            </Link>
+            <Link to="/Admin" className="nav-btn">
+                <RiAdminLine className="nav-btn" />
             </Link>
             <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>

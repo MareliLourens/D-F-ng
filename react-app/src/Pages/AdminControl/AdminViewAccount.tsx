@@ -4,6 +4,7 @@ import { FaSearch, FaBell } from 'react-icons/fa';
 import { IoArrowBack } from 'react-icons/io5';
 import useAdminService from '../../services/AdminService';
 import './AdminViewAccount.css';
+import Navbar from '../../components/navBar/NavBar';
 
 const AdminViewAccount = () => {
     const location = useLocation(); // Get the current location
@@ -41,7 +42,7 @@ const AdminViewAccount = () => {
     };
 
     return (
-        <div>
+        <div className="body-main">
             <div className="nav-header">
                 <button className="back-button" onClick={handleBack}>
                     <IoArrowBack className="back-icon" /> {/* Back button */}
@@ -59,23 +60,26 @@ const AdminViewAccount = () => {
                     </div>
                 </div>
             </div>
-            <div className="account-info-container">
-                <h1>Account Holder Info</h1>
-                {selectedUser ? (
-                    <div>
-                        <p>Username: {selectedUser.username}</p>
-                        <p>Email: {selectedUser.email}</p>
-                        <p>Admin: {selectedUser.isAdmin ? 'Yes' : 'No'}</p>
-                        <p>Status: {isFrozen ? 'Account is Frozen' : 'Account is Active'}</p>
-                        {isFrozen && <p style={{ color: 'red' }}>This account is frozen and cannot log in.</p>}
-                        <button onClick={isFrozen ? handleUnfreezeAccount : handleFreezeAccount}>
-                            {isFrozen ? 'Unfreeze Account' : 'Freeze Account'} {/* Toggle button text */}
-                        </button>
-                    </div>
-                ) : (
-                    <p>No user selected.</p> // Message if no user is selected
-                )}
+            <div className="body-container">
+                <div className="account-info-container">
+                    <h1>Account Holder Info</h1>
+                    {selectedUser ? (
+                        <div>
+                            <p>Username: {selectedUser.username}</p>
+                            <p>Email: {selectedUser.email}</p>
+                            <p>Admin: {selectedUser.isAdmin ? 'Yes' : 'No'}</p>
+                            <p>Status: {isFrozen ? 'Account is Frozen' : 'Account is Active'}</p>
+                            {isFrozen && <p style={{ color: 'red' }}>This account is frozen and cannot log in.</p>}
+                            <button onClick={isFrozen ? handleUnfreezeAccount : handleFreezeAccount}>
+                                {isFrozen ? 'Unfreeze Account' : 'Freeze Account'} {/* Toggle button text */}
+                            </button>
+                        </div>
+                    ) : (
+                        <p>No user selected.</p> // Message if no user is selected
+                    )}
+                </div>
             </div>
+            <Navbar></Navbar>
         </div>
     );
 };
