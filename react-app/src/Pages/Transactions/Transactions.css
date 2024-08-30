@@ -1,5 +1,43 @@
 /* Transcations */
+.transaction-body-container {
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  flex-flow: column;
+  width: 100%;
+  padding: 25px 20px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
 
+.transaction-header-container{
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  flex-flow: column;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.transaction-container {
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  flex-flow: row;
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+
+.transaction-container-text{
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  flex-flow: column;
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
 
 .trasnaction-table-container {
   grid-column-gap: 15px;

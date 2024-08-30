@@ -7,8 +7,6 @@ import Sell from '../../components/sell/Sell';
 import Coin from '../../assets/coin.png';
 import LineChart from '../../components/LineChart';
 import Transfer from '../../components/transfer/Transfer';
-import Deposit from '../../components/desposit/Deposit';
-import Withdraw from '../../components/withdraw/Withdraw';
 
 const SingleCoin = () => {
 
@@ -73,12 +71,6 @@ const SingleCoin = () => {
           <div className='line'></div>
           <div className={styles.buttonContainer}>
             <Transfer />
-          </div>
-          <div className='line'></div>
-
-          <div className={styles.buttonContainer}>
-            <Deposit />
-            <Withdraw />
           </div>
 
         </div>

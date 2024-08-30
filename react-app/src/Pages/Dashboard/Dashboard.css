@@ -334,6 +334,14 @@
   object-fit: cover;
 }
 
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 100%;
+  min-width: 600px;
+}
+
 .h1 {
   color: var(--white);
   font-size: 26px;

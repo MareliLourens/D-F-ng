@@ -5,7 +5,9 @@ import NavBar from '../../components/navBar/NavBar';
 import NavHeader from '../../components/navHeader/navHeader';
 import useTransactionService, { Transaction } from '../../services/TransactionService';
 import useUserService from '../../services/UserService';
-import Loading from '../../components/loading'; // Import the new Loading component
+import Deposit from '../../components/desposit/Deposit';
+import Withdraw from '../../components/withdraw/Withdraw';
+import Loading from '../../components/loading';
 
 function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -51,7 +53,38 @@ function Transactions() {
     <div>
       <div className="body-main">
         <NavHeader />
-        <div className="body-container">
+        <div className="transaction-body-container">
+          <div className="transaction-header-container">
+            <div className='transaction-container'>
+              <div className='transaction-container-text'>
+                <div className="h3"> Total Portfolio </div>
+                <div className="coin-card--heading"> R 2100.00 </div>
+                <div className="h3 green">+2.3%</div>
+              </div>
+              <div>
+                <div className="buttonContainer">
+                  <Deposit />
+                  <Withdraw />
+                </div>
+              </div>
+            </div>
+            <div className='line'></div>
+            <div className="portfolio-card-container">
+              <div className="coin-card dark-bg--gradient shine-hover">
+                <div className='coin-card-shape shape1'></div>
+                <div className='coin-card-shape shape3'></div>
+                <div className='coin-card-shape shape2'></div>
+
+                <div className="h3">Star Coin</div>
+                <div className="coin-card--heading"> R 13 000 <span className="coin-card--heading--small">STRP</span> </div>
+                <div className="h3 green">+2.3%</div>
+                <div className="blur-block"></div>
+              </div>
+            </div>
+          </div>
+          <>
+            <h1>Transactions</h1>
+          </>
           <div className="trasnaction-table-container dark-bg--gradient">
             <div className="trasnaction-table-header">
               <div className="trasnaction-table-heading">
