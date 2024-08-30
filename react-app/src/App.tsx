@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import AuthService from '../src/services/authService';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import Transactions from './Pages/Transactions/Transactions';
+import Transactions from './Pages/Transactions/Transactions'; // Ensure the path is correct
 import SingleCoin from './Pages/SingleCoin/SingleCoin';
 import SignUp from './Pages/SignUp';
 import Log from './Pages/Log';
-import AdminControl from './Pages/AdminControl/Admin'
+import AdminControl from './Pages/AdminControl/Admin';
+import AdminViewAccount from './Pages/AdminControl/AdminViewAccount';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/Transactions" element={<Transactions />} />
                 <Route path="/single" element={<SingleCoin />} />
                 <Route path="/admin" element={<AdminControl />} />
+                <Route path="/admin/view-account" element={<AdminViewAccount />} />
                 
 
                 {/* <Route path="*" element={<Navigate to="/login" />} /> */}
