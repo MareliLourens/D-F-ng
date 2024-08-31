@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { log } from 'console';
 
 export interface AdminUser {
   userId: number; // This is the unique ID for each user
@@ -13,8 +12,10 @@ const API_BASE_URL = 'http://localhost:5234/api'; // Just the base URL for our A
 export const useAdminService = () => {
   const getAllUsers = async (): Promise<AdminUser[]> => { // Changed User[] to AdminUser[]
     try {
-      const response = await axios.get<AdminUser[]>(`${API_BASE_URL}/User`); // Let's grab all the users
-      return response.data; // Return the user data we got
+      const response = await axios.get(`${API_BASE_URL}/User`);
+      const users = response.data.$values;
+      
+      return users; // Return the user data we got
     } catch (error) {
       console.error('Error fetching users:', error); // Oops, log any errors
       throw error; // Pass the error up for handling later
@@ -33,13 +34,13 @@ export const useAdminService = () => {
 
   const freezeAccount = async (accountId: number) => {
     try {
-        console.log({accountId})
+      console.log({ accountId })
       const response = await axios.put(`${API_BASE_URL}/Account/${accountId}/freeze`); // Freeze the account, like hitting pause
       console.log('Freeze response:', response.data); // Log what we got back
       return response.data; // Return the response data
-    } catch (error:any) {
-        console.error('Error freezing account:', error.response ? error.response.data : error.message);
-        throw error; // Rethrow the error for handling elsewhere
+    } catch (error: any) {
+      console.error('Error freezing account:', error.response ? error.response.data : error.message);
+      throw error; // Rethrow the error for handling elsewhere
     }
   };
 
