@@ -105,7 +105,8 @@ function Transactions() {
             </div>
             <div className="line"></div>
             {transactions.map((transaction) => (
-              <div key={transaction.transactionId} className="trasnaction-table-header">
+
+              <section id="transaction-section" key={transaction.transactionId} className="trasnaction-table-header">
                 <div className="trasnaction-table-heading">
                   <h1 className="h3">{transaction.transactionType}</h1>
                 </div>
@@ -121,7 +122,8 @@ function Transactions() {
                 <div className="trasnaction-table-heading">
                   <h1 className="h3">{transaction.toUsername || transaction.toAccountId}</h1>
                 </div>
-              </div>
+              </section>
+
             ))}
           </div>
         </div>

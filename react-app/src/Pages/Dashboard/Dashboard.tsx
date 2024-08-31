@@ -14,6 +14,7 @@ import Sell from '../../components/sell/Sell';
 import useUserService, { UserData, AccountData } from '../../services/UserService';
 import Transfer from '../../components/transfer/Transfer';
 import Loading from '../../components/loading';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -87,7 +88,7 @@ function Dashboard() {
                         <FaFireFlameCurved className="svg" />
                       </div>
                     </div>
-                    <div className="h3">Bronze</div>
+                    <div className="h3">Bronze (NB)</div>
                   </div>
                   <div className="profile-content">
                     <div className="content">
@@ -105,7 +106,7 @@ function Dashboard() {
                         <SlGraph className="svg" />
                       </div>
                     </div>
-                    <div className="h3">+2.3%</div>
+                    <div className="h3">+2.3% (NB)</div>
                   </div>
                 </div>
               </div>
@@ -122,34 +123,8 @@ function Dashboard() {
               <div className="transactions-container dark-bg--gradient">
                 <div className="transaction-heading">
                   <div className="h2">Exchange rates</div>
-                  <button className="h4 tertiary-btn">view all</button>
+                  {/* <button className="h4 tertiary-btn">view all</button> */}
                 </div>
-                <div className="transaction-heading">
-                  <div className="transaction-user-container">
-                    <div>
-                      <FaCoins className="svg" />
-                    </div>
-                    <div className="transaction-user-text-container">
-                      <div className="h3">STRC</div>
-                      <div className="h4">Star Chip</div>
-                    </div>
-                  </div>
-                  <div className="h3 green">R250.00  +2.5%</div>
-                </div>
-                <div className="line"></div>
-                <div className="transaction-heading">
-                  <div className="transaction-user-container">
-                    <div>
-                      <FaCoins className="svg" />
-                    </div>
-                    <div className="transaction-user-text-container">
-                      <div className="h3">STRC</div>
-                      <div className="h4">Star Chip</div>
-                    </div>
-                  </div>
-                  <div className="h3 green">R250.00  +2.5%</div>
-                </div>
-                <div className="line"></div>
                 <div className="transaction-heading">
                   <div className="transaction-user-container">
                     <div>
@@ -168,30 +143,37 @@ function Dashboard() {
           <div className="body-container--right">
             <div className="portfolio-heading-container">
               <div className="portfolio-heading-sub-container">
-                <div className="portfolio-heading">Total Portfolio</div>
-                <button className="h4 tertiary-btn">view more</button>
+                <div className="portfolio-heading">Total Balance</div>
+                <Link to="/wallet">
+                  <button className="h4 tertiary-btn">view more</button>
+                </Link>
               </div>
               <div className="line"></div>
               <div className="portfolio-sub-heading">R {accountData.balance.toFixed(2)}</div>
             </div>
             {/* Coin */}
-            <div className="portfolio-card-container shine-hover">
-              <div className="coin-card dark-bg--gradient">
-                <div className='coin-card-shape shape1'></div>
-                <div className='coin-card-shape shape3'></div>
-                <div className='coin-card-shape shape2'></div>
+            <Link to="/single-coin">
+              <div className="portfolio-card-container shine-hover">
+                <div className="coin-card dark-bg--gradient">
+                  <div className='coin-card-shape shape1'></div>
+                  <div className='coin-card-shape shape3'></div>
+                  <div className='coin-card-shape shape2'></div>
 
-                <div className="h3">Star Coin</div>
-                <div className="coin-card--heading"> {accountData.coinBalance} <span className="coin-card--heading--small">STRP</span> </div>
-                <div className="h3 green">+2.3%</div>
-                <div className="blur-block"></div>
+                  <div className="h3">Star Coin</div>
+                  <div className="coin-card--heading"> {accountData.coinBalance} <span className="coin-card--heading--small">STRP</span> </div>
+                  <div className="h3 green">+2.3%</div>
+                  <div className="blur-block"></div>
+                </div>
               </div>
-            </div>
+            </Link>
             <div className="transactions-container dark-bg--gradient">
               <div className="transactions-container-overlay"></div>
               <div className="transaction-heading">
-                <div className="h2">Transactions</div>
-                <button className="h4 tertiary-btn">view all</button>
+                <div className="h2">Recent Transactions</div>
+                <Link to="/wallet#transaction-section">
+                  <button className="h4 tertiary-btn">view all</button>
+                </Link>
+
               </div>
               <div className="transaction-heading">
                 <div className="transaction-user-container">

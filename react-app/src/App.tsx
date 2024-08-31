@@ -24,8 +24,8 @@ function App() {
                     element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
                 /> */}
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/Transactions" element={<Transactions />} />
-                <Route path="/single" element={<SingleCoin />} />
+                <Route path="/wallet" element={<Transactions />} />
+                <Route path="/single-coin" element={<SingleCoin />} />
                 <Route path="/admin" element={<AdminControl />} />
                 <Route path="/admin/view-account" element={<AdminViewAccount />} />
                 
