@@ -82,9 +82,9 @@ const Signup = () => {
                                 width: '100%',
                                 padding: '12px',
                                 margin: '10px 0',
-                                border: '1px solid #007bff',
+                                border: '1px solid grey',
                                 borderRadius: '5px',
-                                backgroundColor: '#f0f8ff',
+                                backgroundColor: '#fff',
                             }}
                         />
                         <Components.Input
@@ -97,9 +97,9 @@ const Signup = () => {
                                 width: '100%',
                                 padding: '12px',
                                 margin: '10px 0',
-                                border: '1px solid #007bff',
+                                border: '1px solid grey',
                                 borderRadius: '5px',
-                                backgroundColor: '#f0f8ff',
+                                backgroundColor: '#fff',
                             }}
                         />
                         <Components.Input
@@ -112,9 +112,9 @@ const Signup = () => {
                                 width: '100%',
                                 padding: '12px',
                                 margin: '10px 0',
-                                border: '1px solid #007bff',
+                                border: '1px solid grey',
                                 borderRadius: '5px',
-                                backgroundColor: '#f0f8ff',
+                                backgroundColor: '#fff',
                             }}
                         />
                         <Components.Button type="submit" className="button"  style={{
@@ -135,16 +135,17 @@ const Signup = () => {
                                 width: '100%',
                                 padding: '12px',
                                 margin: '10px 0',
-                                border: '1px solid #007bff',
+                                border: '1px solid grey',
                                 borderRadius: '5px',
-                                backgroundColor: '#f0f8ff',
+                                backgroundColor: '#fff',
                             }}
                         />
                         <Components.Button type="submit" className="button">Validate OTP</Components.Button>
                     </Components.Form>
                 )}
                 <p  style={{
-                            color: 'black'
+                            color: 'black',
+                            cursor: 'pointer'
                         }}>Already have an account? <Components.Anchor onClick={() => navigate('/')}  style={{
                             color: 'purple'
                         }}>Sign In</Components.Anchor></p>

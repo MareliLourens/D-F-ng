@@ -149,7 +149,9 @@ function Dashboard() {
                 </Link>
               </div>
               <div className="line"></div>
-              <div className="portfolio-sub-heading">R {accountData.balance.toFixed(2)}</div>
+              <div className="portfolio-sub-heading">
+                {new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(accountData.balance)}
+              </div>
             </div>
             {/* Coin */}
             <Link to="/single-coin">

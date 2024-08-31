@@ -70,9 +70,9 @@ const Log = () => {
                             width: '100%',
                             padding: '12px',
                             margin: '10px 0',
-                            border: '1px solid #007bff',
+                            border: '1px solid grey',
                             borderRadius: '5px',
-                            backgroundColor: '#f0f8ff',
+                            backgroundColor: '#fff',
                         }}
                     />
                     <input
@@ -85,9 +85,9 @@ const Log = () => {
                             width: '100%',
                             padding: '12px',
                             margin: '10px 0',
-                            border: '1px solid #007bff',
+                            border: '1px solid grey',
                             borderRadius: '5px',
-                            backgroundColor: '#f0f8ff',
+                            backgroundColor: '#fff',
                         }}
                     />
                     <a href="#">Forgot your password?</a>
@@ -97,10 +97,11 @@ const Log = () => {
                             marginBottom: '25px'
                         }}>Login</Button>
                     <p  style={{
-                            color: 'black'
+                            color: 'black',
+                            cursor: 'pointer'
                         }}>Don't have an account? <a  style={{
                             color: 'purple'
-                        }} onClick={() => navigate('/signup')}>Sign Up</a></p>
+                        }} onClick={() => navigate('/signup')} >Sign Up</a></p>
                 </form>
             </div>
         </div>
