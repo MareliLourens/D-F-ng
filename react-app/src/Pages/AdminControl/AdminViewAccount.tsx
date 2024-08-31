@@ -85,3 +85,4 @@ const AdminViewAccount = () => {
 };
 
 export default AdminViewAccount; // Export the component
+// Note: Why did you call this a component? It is a page, I almost moved it to the components folder

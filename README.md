@@ -106,6 +106,7 @@ Npm init -y
 Npm install electron --save-dev
 Npm install concurrently --save-dev
 Npm install axios
+Npm install react-lottie
 ```
 
 ## Features and Functionality:
