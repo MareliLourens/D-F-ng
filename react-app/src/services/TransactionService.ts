@@ -13,11 +13,16 @@ export interface Transaction {
   toUsername?: string;
 }
 
+interface ApiResponse {
+  $id: string;
+  $values: Transaction[];
+}
+
 export const useTransactionService = () => {
   const getTransactionsForUser = async (userId: number): Promise<Transaction[]> => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/Transaction`);
-      const transactions: Transaction[] = response.data;
+      const response = await axios.get<ApiResponse>(`${API_BASE_URL}/Transaction`);
+      const transactions: Transaction[] = response.data.$values;
 
       // Filter transactions for the current user
       const userTransactions = transactions.filter(
@@ -38,11 +43,13 @@ export const useTransactionService = () => {
       const userMap = new Map(users.map(u => [u.data.userId, u.data.username]));
 
       // Add usernames to transactions
-      return userTransactions.map(t => ({
+      return userTransactions
+      .map(t => ({
         ...t,
         fromUsername: userMap.get(t.fromAccountId),
         toUsername: userMap.get(t.toAccountId)
-      }));
+      }))
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     } catch (error) {
       console.error('Error fetching transactions:', error);
       throw error;
