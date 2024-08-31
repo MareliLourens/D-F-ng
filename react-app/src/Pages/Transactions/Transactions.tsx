@@ -4,21 +4,30 @@ import './Transactions.css';
 import NavBar from '../../components/navBar/NavBar';
 import NavHeader from '../../components/navHeader/navHeader';
 import useTransactionService, { Transaction } from '../../services/TransactionService';
-import useUserService from '../../services/UserService';
 import Deposit from '../../components/desposit/Deposit';
 import Withdraw from '../../components/withdraw/Withdraw';
 import Loading from '../../components/loading';
+
+import useUserService, { UserData, AccountData } from '../../services/UserService';
 
 function Transactions() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const transactionService = useTransactionService();
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [accountData, setAccountData] = useState<AccountData | null>(null);
   const userService = useUserService();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user = await userService.getCurrentUser();
+        setUserData(user);
+
+        const account = await userService.getAccountData(user.userId);
+        setAccountData(account);
+        // 
+        // const user = await userService.getCurrentUser();
         const userTransactions = await transactionService.getTransactionsForUser(user.userId);
         setTransactions(userTransactions);
       } catch (error) {
@@ -37,11 +46,11 @@ function Transactions() {
   };
 
   const formatAmount = (amount: number, transactionType: string) => {
-    const prefix = transactionType === 'AccountTopup' ? '+' : '-';
-    return `${prefix}R${amount.toFixed(2)}`;
+    const prefix = transactionType === 'AccountTopup' ? '+' : '';
+    return `${prefix}${new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(amount)}`;
   };
 
-  if (loading) {
+  if (loading || !userData || !accountData) {
     return (
       <div className="loading-wrapper">
         <Loading />
@@ -57,8 +66,10 @@ function Transactions() {
           <div className="transaction-header-container">
             <div className='transaction-container'>
               <div className='transaction-container-text'>
-                <div className="h3"> Total Portfolio </div>
-                <div className="coin-card--heading"> R 2100.00 </div>
+                <div className="h3"> Total Balance </div>
+                <div className="coin-card--heading">
+                  {new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(accountData.balance)}
+                </div>
                 <div className="h3 green">+2.3%</div>
               </div>
               <div>
@@ -76,7 +87,7 @@ function Transactions() {
                 <div className='coin-card-shape shape2'></div>
 
                 <div className="h3">Star Coin</div>
-                <div className="coin-card--heading"> R 13 000 <span className="coin-card--heading--small">STRP</span> </div>
+                <div className="coin-card--heading"> {accountData.coinBalance} <span className="coin-card--heading--small">STRP</span> </div>
                 <div className="h3 green">+2.3%</div>
                 <div className="blur-block"></div>
               </div>
