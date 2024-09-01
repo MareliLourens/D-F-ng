@@ -62,7 +62,7 @@ export const useAuthService = () => {
     };
 
     const getAccountData = async (userId: string): Promise<AccountData> => {
-        const response = await fetch(`http://localhost:5234/api/Account/user/${userId}`, {
+        const response = await fetch(`http://localhost:5234/api/User/account/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

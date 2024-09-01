@@ -18,11 +18,28 @@ const Log = () => {
 
         try {
             const response = await authService.login({ email, password });
-            console.log('Login successful:', response);
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('userId', response.userId);
-            navigate('/Dashboard');
+            console.log('Login response:', response);
+
+            if (response && response.token) {
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('userId', response.userId);
+                // localStorage.setItem('isAdmin', response.isAdmin.toString());
+
+                try {
+                    const accountData = await authService.getAccountData(response.userId);
+                    localStorage.setItem('accountId', accountData.accountId.toString());
+                    console.log('Account data fetched successfully:', accountData);
+                } catch (accountErr) {
+                    console.error('Error fetching account data:', accountErr);
+                }
+
+                console.log('Login successful, navigating to Dashboard');
+                navigate('/Dashboard');
+            } else {
+                throw new Error('Invalid login response');
+            }
         } catch (err) {
+            console.error('Login error:', err);
             setError('Login failed. Please check your credentials and try again.');
         }
     };

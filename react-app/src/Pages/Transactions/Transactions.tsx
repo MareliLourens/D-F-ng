@@ -26,9 +26,8 @@ function Transactions() {
 
         const account = await userService.getAccountData(user.userId);
         setAccountData(account);
-        // 
-        // const user = await userService.getCurrentUser();
-        const userTransactions = await transactionService.getTransactionsForUser(user.userId);
+        
+        const userTransactions = await transactionService.getTransactionsForAccount(account.accountId);
         setTransactions(userTransactions);
       } catch (error) {
         console.error('Error fetching data:', error);
