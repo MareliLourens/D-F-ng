@@ -23,7 +23,7 @@ const Sell = () => {
   const starCoinValue = 250;
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
+    const storedUserId = localStorage.getItem('accountId');
     if (storedUserId) {
       setUserId(storedUserId);
     }
