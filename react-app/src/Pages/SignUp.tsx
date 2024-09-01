@@ -32,7 +32,7 @@ const Signup = () => {
         try {
             const response = await authService.validateOtp({ otp, email }); 
             console.log('OTP validation successful:', response);
-            navigate('/login');
+            navigate('/');
         } catch (err) {
             setError('OTP validation failed. Please try again.');
         }
