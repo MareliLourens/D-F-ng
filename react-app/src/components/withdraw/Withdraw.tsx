@@ -17,7 +17,7 @@ const Withdraw = () => {
 
   // Collect the user's id
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
+    const storedUserId = localStorage.getItem('accountId');
     if (storedUserId) {
       setUserId(storedUserId);
     }
