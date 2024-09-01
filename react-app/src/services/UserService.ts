@@ -37,7 +37,7 @@ export const useUserService = () => {
 
   const getAccountData = async (userId: number): Promise<AccountData> => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/Account/${userId}`);
+      const response = await axios.get(`${API_BASE_URL}/User/account/${userId}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching account data:', error);
