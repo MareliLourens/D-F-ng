@@ -10,9 +10,20 @@ export interface LoginData {
     password: string;
 }
 
+export interface LoginResponse {
+    token: string;
+    userId: string;
+    isAdmin: boolean;
+}
+
 export interface OtpValidationData {
     email: string;
     otp: string;
+}
+
+export interface AccountData {
+    accountId: number;
+    // ... other account properties
 }
 
 export const useAuthService = () => {
@@ -34,7 +45,7 @@ export const useAuthService = () => {
         return response.json();
     };
 
-    const login = async (data: LoginData) => {
+    const login = async (data: LoginData): Promise<LoginResponse> => {
         const response = await fetch(`${apiUrl}/login`, {
             method: 'POST',
             headers: {
@@ -45,6 +56,22 @@ export const useAuthService = () => {
 
         if (!response.ok) {
             throw new Error('Login failed');
+        }
+
+        return response.json();
+    };
+
+    const getAccountData = async (userId: string): Promise<AccountData> => {
+        const response = await fetch(`http://localhost:5234/api/Account/user/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch account data');
         }
 
         return response.json();
@@ -67,9 +94,10 @@ export const useAuthService = () => {
     };
 
     const logout = () => {
-        // Remove the token from localStorage
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('isAdmin');
+        localStorage.removeItem('accountId');
     };
 
     return {
@@ -77,6 +105,7 @@ export const useAuthService = () => {
         login,
         validateOtp,
         logout,
+        getAccountData,
     };
 };
 

@@ -21,7 +21,19 @@ const Log = () => {
             console.log('Login successful:', response);
             localStorage.setItem('token', response.token);
             localStorage.setItem('userId', response.userId);
-            navigate('/Dashboard');
+            localStorage.setItem('isAdmin', response.isAdmin.toString());
+
+            // Fetch account data
+            try {
+                const accountData = await authService.getAccountData(response.userId);
+                localStorage.setItem('accountId', accountData.accountId.toString());
+            } catch (accountError) {
+                console.error('Failed to fetch account data:', accountError);
+                // You might want to handle this error, perhaps by showing a warning to the user
+                // or by redirecting them to a page where they can set up their account
+            }
+
+            navigate(response.isAdmin ? '/admin' : '/Dashboard');
         } catch (err) {
             setError('Login failed. Please check your credentials and try again.');
         }
